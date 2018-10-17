@@ -4,7 +4,7 @@
 
 const writeFishes = (arrayOfFishes) => {
     let domString = '';
-    arrayOfFishes.array.forEach((fish) => {
+    arrayOfFishes.forEach((fish) => {
         domString += `
         <div class="${fish.onSale ? 'on-sale' : ''} on-sale fish card col-md-6 col-md-offset-3"> 
         <div class="thumbnail">
@@ -21,22 +21,35 @@ const writeFishes = (arrayOfFishes) => {
             </div>
         </div>
         </div>`
-        
-    });
+
+    })
     // Write to the available div
 
     $("#available").append(domString);
-    // $(domString).appendTo("#available");
+    bindEvents();
 
 }
 
-$.get('../db/fishes.json')
-.done((data) => {
-    console.log(data);
-    writeFishes(data);
-})
+    const bindEvents = () => {
+        $(".add").on('click', (e) => {
+            //what is the div that has the fish
+        const fishToMove =  $(e.target).closest('.fish');
+            // move it to the 'snagged' div
+            $("#snagged").append(fishToMove);
+            // button text => Remove from Basket | change class - 'add' + 'remove'
+            $(e.target).text('Remove from Basket').addClass('remove').removeClass('add');
+        });
+    };
 
-.fail((error) => {
-    console.error({error});
-});
+
+//Load fish
+$.get('../db/fishes.json')
+    .done((data) => {
+        console.log(data);
+        writeFishes(data.fishes);
+    })
+    .fail((error) => {
+        console.error({ error });
+    });
+
 

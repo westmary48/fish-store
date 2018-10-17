@@ -41,7 +41,13 @@ $("#show-sale").click(() => {
 // alert('SALE FISHHHHH');
 // all divs with the class fish, give me just the ones WITHOUT the class 'on sale' and HIDE
 $(".fish").not(".on-sale").toggle();
-
+$("#show-sale").text((i, text) => {
+ if (text === "Show Sale Fish") {
+     return "Show All"
+ } else {
+     return "Show Sale Fish";
+ }
+})
 });
 
     //Load fish

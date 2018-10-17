@@ -54,8 +54,10 @@ $("#show-sale").text((i, text) => {
  } else {
      return "Show Sale Fish";
  }
+
 })
 });
+
 
     //Load fish
     $.get('../db/fishes.json')
@@ -66,5 +68,3 @@ $("#show-sale").text((i, text) => {
         .fail((error) => {
             console.error({ error });
         });
-    
-
